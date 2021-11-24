@@ -1,4 +1,3 @@
-require_relative 'valera_action'
 require_relative '../valera'
 
 module Actions
@@ -22,7 +21,7 @@ module Actions
       def set_positive
         @valera.positive += @stats['positive'].nil? ? 0 : @stats['positive']
         @valera.positive = @valera.positive >= 10 ? 10 : @valera.positive
-        @valera.positive = @valera.positive <=-10 ? -10: @valera.positive
+        @valera.positive = @valera.positive <= -10 ? -10 : @valera.positive
       end
 
       def set_tiredness
