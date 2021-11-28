@@ -1,0 +1,8 @@
+[1] Go to work                                   New game [N]
+[2] Behold nature                                Save [S]
+[3] Drink wine and watch series                  Load [L]
+[4] Go to a bar                                  Quit [Q]
+[5] Drinking with marginals
+[6] Sing in the subway
+[7] Sleep
+
