@@ -3,6 +3,26 @@ class IoAdapter
     @messages = IniFile.load('./gamedata/game_statuses.ini')['default']
   end
 
+  def new_line
+    puts
+  end
+
+  def writeln(message)
+    puts message
+  end
+
+  def write(message)
+    print message
+  end
+
+  def clear
+    system('clear')
+  end
+
+  def read_line
+    gets
+  end
+
   def input_choice
     loop do
       print ' > '

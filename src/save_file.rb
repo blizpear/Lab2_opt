@@ -1,5 +1,5 @@
 require 'inifile'
-require_relative 'src/valera'
+require_relative 'valera'
 
 class SaveFile
   def load(slot)
@@ -14,7 +14,7 @@ class SaveFile
     write(ini)
   end
 
-  def saves_list_get
+  def saves_list
     saves_list = Dir['./appdata/save_*.ini']
     (0..saves_list.length - 1).each do |i|
       saves_list[i] = saves_list[i][15..saves_list[i].length - 5]
