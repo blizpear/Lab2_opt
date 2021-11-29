@@ -10,7 +10,6 @@ module Actions
 
       def set_health
         @valera.health += @stats['health'].nil? ? 0 : @stats['health']
-        @valera.health = 100 if @valera.health >= 100
       end
 
       def set_mana
@@ -21,7 +20,7 @@ module Actions
       def set_positive
         @valera.positive += @stats['positive'].nil? ? 0 : @stats['positive']
         @valera.positive = @valera.positive >= 10 ? 10 : @valera.positive
-        @valera.positive = @valera.positive <= -10 ? -10 : @valera.positive
+        #@valera.positive = @valera.positive <= -10 ? -10 : @valera.positive
       end
 
       def set_tiredness

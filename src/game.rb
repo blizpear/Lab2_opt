@@ -90,7 +90,7 @@ class Game
   end
 
   def game_continues?
-    @valera.health.positive? && @valera.mana <= 100 && @valera.money >= 0
+    @valera.health.positive? && @valera.mana <= 100 && @valera.money >= 0 && @valera.positive > -10
   end
 
   def print_game
@@ -113,6 +113,8 @@ class Game
       @status = 'da'
     elsif @valera.money.negative?
       @status = 'dm'
+    elsif @valera.positive <= -10
+      @status = 'ds'
     end
     print_game
   end
