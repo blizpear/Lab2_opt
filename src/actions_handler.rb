@@ -12,13 +12,8 @@ class ActionsHandler
     attr_reader :actions
   end
 
-  def initialize(valera, config)
-    @valera = valera
+  def initialize(config)
     @config = config
-  end
-
-  def valera_set(valera_new)
-    @valera = valera_new
   end
 
   @actions = {
@@ -32,8 +27,8 @@ class ActionsHandler
     '7' => ->(conf, val) { ValeraSleep.new(conf['sleep'], val).go_sleep }
   }
 
-  def game_loop(choice_action)
+  def game_loop(choice_action, valera)
     action = ActionsHandler.actions[choice_action]
-    action&.call(@config, @valera)
+    action&.call(@config, valera)
   end
 end
