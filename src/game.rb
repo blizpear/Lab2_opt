@@ -11,7 +11,7 @@ class Game
     @valera = Valera.new(@config['default'])
     @io_adapter = IoAdapter.new
     @status = 'n'
-    @game = ActionsHandler.new(@valera, @config)
+    @game = ActionsHandler.new(@config)
     @sv = SaveFile.new
   end
 
@@ -33,7 +33,6 @@ class Game
 
   def menu_new
     @valera = Valera.new(@config['default'])
-    @game.valera_set(@valera)
   end
 
   def menu_save
@@ -84,7 +83,7 @@ class Game
     while game_continues?
       print_game
       @status = @io_adapter.input_choice
-      @game.game_loop(@status)
+      @game.game_loop(@status, @valera)
       menu_chosen
     end
   end
