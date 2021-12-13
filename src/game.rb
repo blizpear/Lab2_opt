@@ -23,7 +23,7 @@ class Game
     loop do
       case state
       when RENDER_MENU
-        state, valera = main_menu
+        state, valera, error = main_menu(error)
       when GAME
         state, valera, error = iterate_game(config, valera, error)
       when EXIT_GAME
@@ -32,8 +32,9 @@ class Game
     end
   end
 
-  def main_menu
+  def main_menu(error)
     @menu.print_main_menu
+    puts error
 
     input = @input.pressed_key.to_i
 
@@ -42,7 +43,11 @@ class Game
       [GAME, Valera.new]
     when 2
       saved_game = @file_manager.load_game
-      [GAME, Valera.new(saved_game)]
+      if saved_game.nil?
+        [RENDER_MENU, Valera.new(saved_game), 'No saves yet']
+      else
+        [GAME, Valera.new(saved_game), nil]
+      end
     when 3
       EXIT_GAME
     else

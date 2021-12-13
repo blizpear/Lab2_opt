@@ -19,6 +19,8 @@ class FileManager
   end
 
   def load_game
+    return unless File.exist?(@save_file)
+
     file = File.open(@save_file)
     JSON.parse(file.read)
   end
