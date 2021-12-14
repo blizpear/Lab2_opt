@@ -12,9 +12,7 @@ class Actions
       change_attribute(effect['name'], effect['value'], valera)
       next unless effect.include?('condition')
 
-      if valera.send(effect['condition']['name']).between?(effect['condition']['min'], effect['condition']['max'])
-        change_attribute(effect['name'], effect['condition']['value'], valera)
-      end
+      check_additional_effect(valera, effect)
     end
   end
 
@@ -28,5 +26,15 @@ class Actions
     end
     change_attributes(action, valera)
     nil
+  end
+
+  private
+
+  def check_additional_effect(valera, effect)
+    unless valera.send(effect['condition']['name']).between?(effect['condition']['min'], effect['condition']['max'])
+      return
+    end
+
+    change_attribute(effect['name'], effect['condition']['value'], valera)
   end
 end

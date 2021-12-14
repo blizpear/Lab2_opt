@@ -59,28 +59,40 @@ class Game
     @menu.render_game_menu(valera, error)
     input = @input.pressed_key
 
-    case input
-    when 'q'
-      return EXIT_GAME
-    when 'm'
-      @file_manager.save(valera)
-      return RENDER_MENU, valera
-    when 's'
-      @file_manager.save(valera)
-      @menu.print_saved
-      @input.pressed_key
-    end
+    state = reserved_key(input, valera)
+    return state unless state.nil?
 
     input = input.to_i - 1
     return GAME, valera if input.negative? || input > config['actions'].length - 1
 
     error = Actions.new.do_action(config['actions'][input], valera)
 
-    if valera.dead?
-      @menu.print_game_over
-      @input.pressed_key
-      return RENDER_MENU, valera
-    end
+    return [RENDER_MENU, valera] if check_valera_death(valera)
+
     [GAME, valera, error]
+  end
+
+  private
+
+  def reserved_key(input, valera)
+    case input
+    when 'q'
+      EXIT_GAME
+    when 'm'
+      @file_manager.save(valera)
+      [RENDER_MENU, valera]
+    when 's'
+      @file_manager.save(valera)
+      @menu.print_saved
+      @input.pressed_key
+      nil
+    end
+  end
+
+  def check_valera_death(valera)
+    return unless valera.dead?
+
+    @menu.print_game_over
+    @input.pressed_key
   end
 end

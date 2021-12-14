@@ -2,21 +2,23 @@ require 'rspec'
 require_relative '../src/game'
 require_relative '../src/io_adapter'
 require_relative '../src/game_states'
+require_relative '../src/file_manager'
+require_relative '../src/menu'
 
 describe Game do
   include GameStates
 
-  let(:Menu) { Menu.new }
-  let(:FileManager) { FileManager.new }
-  let(:IoAdapter) { IoAdapter.new }
+  let(:menu) { Menu.new }
+  let(:file_manager) { FileManager.new }
+  let(:io_adapter) { IoAdapter.new }
 
   before do
-    allow(Menu).to receive(:render_game_menu)
-    allow(Menu).to receive(:print_saved)
-    allow(Menu).to receive(:print_game_over)
+    allow(menu).to receive(:render_game_menu)
+    allow(menu).to receive(:print_saved)
+    allow(menu).to receive(:print_game_over)
 
-    allow(FileManager).to receive(:save)
-    allow(FileManager).to receive(:load_config).and_return(
+    allow(file_manager).to receive(:save)
+    allow(file_manager).to receive(:load_config).and_return(
       Hash.new({ actions: [
                  {
                    name: 'Go to work',
@@ -57,26 +59,26 @@ describe Game do
 
   describe 'Game test' do
     it 'Exit works' do
-      allow(IoAdapter).to receive(:pressed_key).and_return('q')
+      allow(io_adapter).to receive(:pressed_key).and_return('q')
 
-      game = Game.new(Menu, FileManager, IoAdapter)
-      state, = game.iterate_game(FileManager.load_config, Valera.new, nil)
+      game = Game.new(menu, file_manager, io_adapter)
+      state, = game.iterate_game(file_manager.load_config, Valera.new, nil)
       expect(state).to eq 2
     end
 
     it 'save works' do
-      allow(IoAdapter).to receive(:pressed_key).and_return('s')
+      allow(io_adapter).to receive(:pressed_key).and_return('s')
 
-      game = Game.new(Menu, FileManager, IoAdapter)
-      state, = game.iterate_game(FileManager.load_config, Valera.new, nil)
+      game = Game.new(menu, file_manager, io_adapter)
+      state, = game.iterate_game(file_manager.load_config, Valera.new, nil)
       expect(state).to eq 1
     end
 
     it 'menu works' do
-      allow(IoAdapter).to receive(:pressed_key).and_return('m')
+      allow(io_adapter).to receive(:pressed_key).and_return('m')
 
-      game = Game.new(Menu, FileManager, IoAdapter)
-      state, = game.iterate_game(FileManager.load_config, Valera.new, nil)
+      game = Game.new(menu, file_manager, io_adapter)
+      state, = game.iterate_game(file_manager.load_config, Valera.new, nil)
       expect(state).to eq 0
     end
   end

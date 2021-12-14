@@ -3,7 +3,6 @@ class Valera
   attr_accessor :money
 
   def initialize(load_game = {})
-    load_game ||= {}
     @health = load_game['health'] || 100
     @alcohol = load_game['alcohol'] || 0
     @positive = load_game['positive'] || 0

@@ -10,13 +10,17 @@ describe Menu do
     it 'print statuses' do
       expect do
         menu.print_statuses(Valera.new)
-      end.to output("Valera parameters:\n[HP]: 100\n[Mana]: 0\n[Positive]: 0\n[Tiredness]: 0\n[Money]: 0$\n\n").to_stdout
+      end.to output("Valera parameters:\n[HP]: 100\n[Mana]: 0\n[Positive]: 0\n[Tiredness]: 0\n[Money]: 0$\n\n")
+        .to_stdout
     end
 
     it 'main menu' do
       expect do
         menu.print_main_menu
-      end.to output("\e[H\e[2J\nMarginal Valera\n\n[1] - Start new Game\n[2] - Continue Game\n[3] - Exit\n\nChoose action: \n").to_stdout
+      end
+        .to output(
+          "\e[H\e[2J\nMarginal Valera\n\n[1] - Start new Game\n[2] - Continue Game\n[3] - Exit\n\nChoose action: \n"
+        ).to_stdout
     end
 
     it 'additional actions' do
